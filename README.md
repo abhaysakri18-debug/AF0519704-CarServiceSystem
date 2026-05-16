@@ -1,169 +1,161 @@
-# 🚗 Car Service Record Management System
+Car Buying & Selling System using Java JDBC and MySQL
+Project Overview
 
-A console-based **Java JDBC** application to manage car service records — built with MySQL and minimal dependencies.
+The Car Buying & Selling System is a console-based Java application developed using JDBC and MySQL. The system allows users to register, log in, view available cars, purchase cars, and manage car inventory. It also provides role-based access for Admin and Buyer operations.
 
----
+This project demonstrates:
 
-## 📋 Features
+Java programming
+JDBC connectivity
+MySQL database integration
+CRUD operations
+Transaction management
+Input validation
+Inventory/stock management
+Technologies Used
+Technology	Purpose
+Java	Application Development
+JDBC	Database Connectivity
+MySQL	Database Management
+Eclipse IDE	Development Environment
+SQL Workbench	Database Operations
+Features
+Buyer Features
+Buyer Registration
+Email Validation
+Duplicate Email Prevention
+Password Validation
+Login Authentication
+View Available Cars
+Search Car by Brand
+Buy Car
+View Purchase History
+Admin Features
+Add Car
+Update Car Details
+Delete Car
+View All Cars
+View Sold Cars
+Manage Stock Inventory
+Additional Enhancements
+Validation Features
+Email format validation using Regex
+Duplicate email checking
+Password minimum length validation
+Stock Management Features
+Maintain available stock quantity
+Reduce stock after purchase
+Automatic SOLD status update
+Out-of-stock handling
+Project Structure
+com.car
+│
+├── Main.java
+├── CarSystem.java
+└── DBConnection.java
+Database Name
+car_db
+Database Tables
+users Table
+Column	Type
+user_id	INT (PK)
+name	VARCHAR
+email	VARCHAR
+password	VARCHAR
+role	VARCHAR
+cars Table
+Column	Type
+car_id	INT (PK)
+brand	VARCHAR
+model	VARCHAR
+year	INT
+price	DOUBLE
+stock	INT
+status	VARCHAR
+purchases Table
+Column	Type
+purchase_id	INT (PK)
+user_id	INT (FK)
+car_id	INT (FK)
+ER Diagram Description
+One user can purchase multiple cars
+One car can appear in multiple purchase records
+purchases table acts as a bridge between users and cars
 
-- ➕ Add new car service records
-- 📄 View all service records
-- 🔍 Search record by ID
-- ✏️ Update existing records
-- 🗑️ Delete records
-- Console menu-driven interface with user input
+Relationships:
 
----
+users → purchases (One-to-Many)
+cars → purchases (One-to-Many)
+JDBC Concepts Used
+DriverManager
+Connection
+Statement
+PreparedStatement
+ResultSet
+Transactions
+Exception Handling
+SQL Operations Used
+Operation	Usage
+INSERT	Add users, cars, purchases
+SELECT	View and search data
+UPDATE	Update cars and stock
+DELETE	Delete car records
+JOIN	View user purchases
+FOREIGN KEY	Maintain relationships
+Workflow
+Buyer Workflow
+Register/Login
+      ↓
+View Available Cars
+      ↓
+Search Car
+      ↓
+Buy Car
+      ↓
+Stock Updated Automatically
+Admin Workflow
+Login as Admin
+      ↓
+Add / Update / Delete Cars
+      ↓
+Manage Inventory
+      ↓
+View Sold Cars
+How to Run the Project
+Step 1 – Create Database
 
-## 🛠️ Tech Stack
+Run SQL scripts in MySQL Workbench.
 
-| Layer | Technology |
-|---|---|
-| Language | Java (JDK 21) |
-| Database | MySQL 8.x |
-| Connectivity | JDBC (Java Database Connectivity) |
-| IDE | Eclipse |
-| Driver | MySQL Connector/J |
+Step 2 – Configure JDBC
 
----
+Update database username and password in:
 
-## 📁 Project Structure
+DBConnection.java
+Step 3 – Add MySQL JDBC Driver
 
-```
-CarServiceSystem/
-├── src/
-│   └── car/
-│       ├── CarServiceRecord.java   # Model / POJO class
-│       ├── CarServiceDAO.java      # All DB operations (CRUD)
-│       └── Main.java               # Entry point + menu
-├── lib/
-│   └── mysql-connector-j-8.x.x.jar
-└── module-info.java
-```
+Add MySQL Connector JAR file to Eclipse Build Path.
 
----
+Step 4 – Run Application
 
-## 🗄️ Database Setup
+Run:
 
-Run the following SQL in **MySQL Workbench** or terminal:
+Main.java
+Future Enhancements
+GUI using Java Swing or JavaFX
+Online payment integration
+Admin analytics dashboard
+Car image upload
+Mobile application version
+Cloud database integration
+Conclusion
 
-```sql
-CREATE DATABASE car_service_db;
-USE car_service_db;
+The Car Buying & Selling System successfully demonstrates database-driven application development using Java JDBC and MySQL. The project provides secure login functionality, stock management, transaction handling, and role-based access control, making it a complete mini project for academic purposes.
 
-CREATE TABLE car_service_records (
-    id            INT AUTO_INCREMENT PRIMARY KEY,
-    owner_name    VARCHAR(100) NOT NULL,
-    car_model     VARCHAR(100) NOT NULL,
-    license_no    VARCHAR(50)  NOT NULL,
-    service_date  DATE         NOT NULL,
-    service_type  VARCHAR(100) NOT NULL,
-    cost          DOUBLE       NOT NULL,
-    mechanic      VARCHAR(100)
-);
-```
+Developed By
+ABHAY SAKRI
 
----
+THANK YOU
 
-## ⚙️ Configuration
+Your Name Here
 
-Open `CarServiceDAO.java` and update your credentials:
-
-```java
-static final String URL  = "jdbc:mysql://localhost:3306/car_service_db";
-static final String USER = "root";
-static final String PASS = "your_password";   // ← change this
-```
-
----
-
-## 🚀 How to Run
-
-### In Eclipse
-1. Clone or download this repository
-2. Open Eclipse → **File → Import → Existing Project**
-3. Right-click the project → **Build Path → Add External JARs**
-4. Add `mysql-connector-j-8.x.x.jar` from the `lib/` folder
-5. Open `module-info.java` and ensure it contains:
-   ```java
-   module car {
-       requires java.sql;
-   }
-   ```
-6. Right-click `Main.java` → **Run As → Java Application**
-
-### From Terminal
-```bash
-# Compile
-javac -cp ".;lib/mysql-connector-j-8.x.x.jar" src/car/*.java
-
-# Run (Windows)
-java -cp ".;lib/mysql-connector-j-8.x.x.jar;src" car.Main
-
-# Run (Linux/Mac)
-java -cp ".:lib/mysql-connector-j-8.x.x.jar:src" car.Main
-```
-
----
-
-## 📦 Packages Used
-
-```java
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Date;
-import java.util.Scanner;
-```
-
-Minimum imports — no frameworks, no extra libraries.
-
----
-
-## 💻 Sample Output
-
-```
-=== Car Service Record Management System ===
-
-1. Add Record
-2. View All Records
-3. Search by ID
-4. Update Record
-5. Delete Record
-0. Exit
-Choice: 1
-
-Owner Name        : Abhay
-Car Model         : Honda City
-License No        : KA01AB1234
-Date (YYYY-MM-DD) : 2025-01-10
-Service Type      : Oil Change
-Cost              : 800
-Mechanic          : Raju
-
-Record added successfully!
-```
-
----
-
-## 📌 Prerequisites
-
-- Java JDK 21+
-- MySQL 8.x installed and running
-- MySQL Connector/J JAR downloaded from [dev.mysql.com](https://dev.mysql.com/downloads/connector/j/)
-
----
-
-## 👤 Author
-
-**Abhay**  
-Java | JDBC | MySQL  
-Built as part of academic coursework — Car Service Record Management System
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).# AF0519704-CarServiceSystem
+Thank You
